@@ -6,10 +6,16 @@ from django.contrib.auth.models import User
 class Category(models.Model):
     name = models.CharField(max_length=100)
 
+    def __str__(self):
+        return self.name
+
 
 # 标签
 class Tag(models.Model):
     name = models.CharField(max_length=100)
+
+    def __str__(self):
+        return self.name
 
 
 # 文章的数据库表
@@ -36,3 +42,6 @@ class Post(models.Model):
     # 规定一个作者可以有多篇文章,所以用ForeignKey 
     # 作者消失,他写的文章也消失
     author = models.ForeignKey(User, on_delete=models.CASCADE)
+
+    def __str__(self):
+        return self.title
