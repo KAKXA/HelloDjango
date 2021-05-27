@@ -1,5 +1,6 @@
 from django.db import models
 from django.contrib.auth.models import User
+from django.utils import timezone
 
 # Create your models here.
 # 一个分类名
@@ -33,7 +34,8 @@ class Post(models.Model):
     # 因为一篇文章的正文是一大串文字,所以应该用TextField
     body = models.TextField('正文')
     # 分别表示文章的创建时间和最后一次修改时间 
-    created_time = models.DateTimeField('创建时间')
+    # 在用户没有指定时,时间默认为当前时间
+    created_time = models.DateTimeField('创建时间', default=timezone.now)
     modified_time = models.DateTimeField('修改时间')
 
     # 摘要(令blank=True使得允许空的摘要)
@@ -56,6 +58,13 @@ class Post(models.Model):
         verbose_name = '文章'
         # 定义复数形式
         verbose_name_plural = verbose_name
+    
+    
+    # 重写save方法,保证在每次save时都改变modified_time的值
+    def save(self, *args, **kwargs):
+        self.modified_time = timezone.now()
+        super().save(*args, **kwargs)
+    
 
     def __str__(self):
         return self.title
