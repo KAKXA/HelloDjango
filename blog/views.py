@@ -1,7 +1,6 @@
-from django.shortcuts import render
 from django.http import HttpResponse
 from .models import Post
-from django.shortcuts import render
+from django.shortcuts import render, get_object_or_404
 
 
 # 所有post的列表
@@ -16,3 +15,8 @@ def index(req):
 #         'welcome': 'Welcome to my main page'
 #     })
 #     return HttpResponse('hello, this is Ge\'s blog')
+def detail(req, pk):
+    # 如果object存在就返回object否则返回404
+    post = get_object_or_404(Post, pk=pk)
+    # render 是将给定的模板和上下文和上下文字典组合
+    return render(req, 'blog/detail.html', context={'post': post})
