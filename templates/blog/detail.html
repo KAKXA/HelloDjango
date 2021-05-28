@@ -13,7 +13,8 @@
         </div>
     </header>
     <div class="entry-content clearfix">
-        {{ post.body }}
+        <!-- 为了解除对HTML代码的转义 在这里添加safe -->
+        {{ post.body | safe}}
     </div>
     </article>
 
