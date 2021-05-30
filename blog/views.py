@@ -2,6 +2,7 @@ from django.http import HttpResponse
 import markdown
 from .models import Post
 from django.shortcuts import render, get_object_or_404
+import re
 
 
 # 所有post的列表
@@ -28,8 +29,14 @@ def detail(request, pk):
     # 用convert方法将post.body中地Markdown文本解析成HTML文本
     post.body = md.convert(post.body)
     # 在经过上面这行以后,md拥有了toc属性
+
+    # 正则表达式检查目录是否为空
+    m = re.search(r'<div class="toc">\s*<ul>(.*)</ul>\s*</div>', md.toc, re.S)
+
+    # 如果未匹配到目录内容就把post.toc置为空
     # 为post实例动态地添加了toc属性
-    post.toc = md.toc
+    post.toc = m.group(1) if m is not None else ''
+
     # render 是将给定的模板和上下文和上下文字典组合
     # 此时post.body是经过markdown解析过后的HTML文本
     return render(request, 'blog/detail.html', context={'post': post})
