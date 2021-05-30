@@ -1,5 +1,7 @@
 from django.http import HttpResponse
 import markdown
+from django.utils.text import slugify
+from markdown.extensions.toc import TocExtension
 from .models import Post
 from django.shortcuts import render, get_object_or_404
 import re
@@ -24,7 +26,9 @@ def detail(request, pk):
     md = markdown.Markdown(extensions=[
         'markdown.extensions.extra',
         'markdown.extensions.codehilite',
-        'markdown.extensions.toc',
+        # 'markdown.extensions.toc',
+        # 处理标题的锚点值
+        TocExtension(slugify=slugify)
     ])
     # 用convert方法将post.body中地Markdown文本解析成HTML文本
     post.body = md.convert(post.body)
