@@ -16,15 +16,6 @@ def index(req):
 #         'welcome': 'Welcome to my main page'
 #     })
 #     return HttpResponse('hello, this is Ge\'s blog')
-def detail(req, pk):
-    post = get_object_or_404(Post, pk=pk)
-    post.body = markdown.markdown(post.body,
-    extensions=[
-        'markdown.extensions.extra',
-        'markdown.extensions.codehilite',
-        'markdown.extensions.toc'
-    ])
-    return render(req, 'blog/detail.html', context={'post': post})
 
 def detail(request, pk):
     # 如果object存在就返回object否则返回404
