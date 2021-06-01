@@ -1,6 +1,8 @@
 from django.db import models
 from django.contrib.auth.models import User
+from django.utils.html import strip_tags
 from django.utils import timezone
+import markdown
 from django.urls import reverse
 
 # Create your models here.
@@ -62,8 +64,24 @@ class Post(models.Model):
     
     
     # 重写save方法,保证在每次save时都改变modified_time的值
+    # def save(self, *args, **kwargs):
+    #     self.modified_time = timezone.now()
+    #     super().save(*args, **kwargs)
+
+    # 再次重写save方法,保证数据被保存在数据库前,
+    # 先从body字段摘取N个字符保存到excerpt字段中
     def save(self, *args, **kwargs):
         self.modified_time = timezone.now()
+
+        # 实例化Markdown类,渲染body的文本
+        md = markdown.Markdown(extensions=[
+            'markdown.extensions.extra',
+            'markdown.extensions.codehilite',
+        ])
+
+        # strip_tags的功能是去掉HTML文本的全部HTML标签
+        self.excerpt = strip_tags(md.convert(self.body))[:54]
+
         super().save(*args, **kwargs)
 
     def get_absolute_url(self):
