@@ -3,6 +3,8 @@
 <!-- static在settings.py中的STATIC_URL处定义-->
 <!-- 以后如果要更换静态文件的路径,只要改那个地方就行了,不用再每个文件头部修改-->
 {% load static %}
+<!-- 导入存放这些模板标签的模板 -->
+{% load blog_extras %}
 <!DOCTYPE html>
 <html>
 <head>
@@ -112,7 +114,20 @@
             <aside class="col-md-4">
                 {% block toc %}
                 {% endblock toc %}
-                ...
+
+                <!--
+                    对应的模板标签
+                -->
+                {% show_recent_posts %}
+                {% show_archives %}
+                {% show_categories %}
+                {% show_tags %}`
+                
+                <div class="rss">
+                    <a href="">
+                        <span class="ion-social-rss-outline"></span> RSS 订阅
+                    </a>
+                </div>
             </aside>
         </div>
     </div>
