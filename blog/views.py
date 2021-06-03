@@ -2,7 +2,7 @@ from django.http import HttpResponse
 import markdown
 from django.utils.text import slugify
 from markdown.extensions.toc import TocExtension
-from .models import Post
+from .models import Post, Category
 from django.shortcuts import render, get_object_or_404
 import re
 
@@ -44,3 +44,19 @@ def detail(request, pk):
     # render 是将给定的模板和上下文和上下文字典组合
     # 此时post.body是经过markdown解析过后的HTML文本
     return render(request, 'blog/detail.html', context={'post': post})
+
+def archive(request, year, month):
+    # 筛出指定年和月的文章
+    post_list = Post.objects.filter(
+        created_time__year=year,
+        created_time__month=month
+    ).order_by('-created_time')
+    # 界面和index.html一样,只不过只展示在指定年月发布的文章
+    return render(request, 'blog/index.html', context={'post_list': post_list})
+
+def category(request, pk):
+    cate = get_object_or_404(Category, pk=pk)
+    post_list = Post.objects.filter(
+        category=cate
+    ).order_by('-created_time')
+    return render(request, 'blog/index.html', context={'post_list': post_list})

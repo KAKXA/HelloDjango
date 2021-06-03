@@ -4,7 +4,14 @@
     <!-- date_list 的每个元素都是Python的date对象-->
     {% for date in date_list %}
       <li>
-        <a href="#">{{ date.year }} 年 {{ date.month }} 月</a>
+        <!-- url这个模板标签的作用是解析视图函数对应的URL模式 -->
+        <!-- 并把年和月替换成date.year,date.month的值 -->
+        <!-- 比方说urls.py blog命名空间下的archive这个视图函数(name='archive')-->
+        <!-- date是在这个模板里被迭代的变量,把它的year和month函数返回来作为那边函数的输入-->
+        <a href="{% url 'blog:archive' date.year date.month %}">
+        <!-- 最后生成一个符合urls.py中path第一个参数的格式-->
+          {{ date.year }} 年 {{ date.month }} 月
+        </a>
       </li>
     {% empty %}
       暂无归档！
