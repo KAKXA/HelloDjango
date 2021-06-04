@@ -40,6 +40,8 @@ INSTALLED_APPS = [
     # 'blog',
     # 刚刚在BlogConfig为blog添加了别名"博客",需要将其所在类注册进来
     'blog.apps.BlogConfig',
+    # 'comments'
+    'comments.apps.CommentsConfig',
 ]
 
 MIDDLEWARE = [

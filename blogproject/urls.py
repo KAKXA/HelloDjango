@@ -20,5 +20,6 @@ urlpatterns = [
     path('admin/', admin.site.urls),
     # 把blog中的urls保存进来,告诉django,
     # 可以在blog.urls找到视图函数核URL为''的绑定关系
-    path('', include('blog.urls'))
+    path('', include('blog.urls')),
+    path('', include('comments.urls')),
 ]
