@@ -61,6 +61,8 @@ class Post(models.Model):
         verbose_name = '文章'
         # 定义复数形式
         verbose_name_plural = verbose_name
+        # 按照创建时间排序
+        ordering = ['-created_time']
     
     
     # 重写save方法,保证在每次save时都改变modified_time的值

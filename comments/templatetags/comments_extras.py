@@ -20,6 +20,7 @@ def show_comments(context, post):
     comment_list = post.comment_set.all().order_by('-created_time')
     comment_count = comment_list.count()
     return {
+        # 也可以直接在模板中调用
         'comment_count': comment_count,
         'comment_list': comment_list
     }
