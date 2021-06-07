@@ -1,5 +1,7 @@
-from comments.views import comment
 from django import template
+
+from comments.views import comment
+
 from ..forms import CommentForm
 
 register = template.Library()

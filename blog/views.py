@@ -1,10 +1,12 @@
-from django.http import HttpResponse
+import re
+
 import markdown
+from django.http import HttpResponse
+from django.shortcuts import get_object_or_404, render
 from django.utils.text import slugify
 from markdown.extensions.toc import TocExtension
-from .models import Post, Category
-from django.shortcuts import render, get_object_or_404
-import re
+
+from .models import Category, Post
 
 
 # 所有post的列表

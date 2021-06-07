@@ -1,6 +1,7 @@
-from blogproject.settings import TIME_ZONE
 from django.db import models
 from django.utils import timezone
+
+from blogproject.settings import TIME_ZONE
 
 # Create your models here.
 

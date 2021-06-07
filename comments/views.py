@@ -1,8 +1,9 @@
-from django.forms.utils import from_current_timezone
-from blog.models import Post
-from django.shortcuts import get_object_or_404, redirect, render
 from django.contrib import messages
+from django.forms.utils import from_current_timezone
+from django.shortcuts import get_object_or_404, redirect, render
 from django.views.decorators.http import require_POST
+
+from blog.models import Post
 
 from .forms import CommentForm
 
