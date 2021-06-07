@@ -9,60 +9,72 @@ import django.utils.timezone
 class Migration(migrations.Migration):
 
     dependencies = [
-        ('blog', '0001_initial'),
+        ("blog", "0001_initial"),
     ]
 
     operations = [
         migrations.AlterModelOptions(
-            name='category',
-            options={'verbose_name': '分类', 'verbose_name_plural': '分类'},
+            name="category",
+            options={"verbose_name": "分类", "verbose_name_plural": "分类"},
         ),
         migrations.AlterModelOptions(
-            name='post',
-            options={'verbose_name': '文章', 'verbose_name_plural': '文章'},
+            name="post",
+            options={"verbose_name": "文章", "verbose_name_plural": "文章"},
         ),
         migrations.AlterModelOptions(
-            name='tag',
-            options={'verbose_name': '标签', 'verbose_name_plural': '标签'},
+            name="tag",
+            options={"verbose_name": "标签", "verbose_name_plural": "标签"},
         ),
         migrations.AlterField(
-            model_name='post',
-            name='author',
-            field=models.ForeignKey(on_delete=django.db.models.deletion.CASCADE, to=settings.AUTH_USER_MODEL, verbose_name='作者(测试)'),
+            model_name="post",
+            name="author",
+            field=models.ForeignKey(
+                on_delete=django.db.models.deletion.CASCADE,
+                to=settings.AUTH_USER_MODEL,
+                verbose_name="作者(测试)",
+            ),
         ),
         migrations.AlterField(
-            model_name='post',
-            name='body',
-            field=models.TextField(verbose_name='正文'),
+            model_name="post",
+            name="body",
+            field=models.TextField(verbose_name="正文"),
         ),
         migrations.AlterField(
-            model_name='post',
-            name='category',
-            field=models.ForeignKey(on_delete=django.db.models.deletion.CASCADE, to='blog.Category', verbose_name='分类'),
+            model_name="post",
+            name="category",
+            field=models.ForeignKey(
+                on_delete=django.db.models.deletion.CASCADE,
+                to="blog.Category",
+                verbose_name="分类",
+            ),
         ),
         migrations.AlterField(
-            model_name='post',
-            name='created_time',
-            field=models.DateTimeField(default=django.utils.timezone.now, verbose_name='创建时间'),
+            model_name="post",
+            name="created_time",
+            field=models.DateTimeField(
+                default=django.utils.timezone.now, verbose_name="创建时间"
+            ),
         ),
         migrations.AlterField(
-            model_name='post',
-            name='excerpt',
-            field=models.CharField(blank=True, max_length=200, verbose_name='摘要'),
+            model_name="post",
+            name="excerpt",
+            field=models.CharField(blank=True, max_length=200, verbose_name="摘要"),
         ),
         migrations.AlterField(
-            model_name='post',
-            name='modified_time',
-            field=models.DateTimeField(verbose_name='修改时间'),
+            model_name="post",
+            name="modified_time",
+            field=models.DateTimeField(verbose_name="修改时间"),
         ),
         migrations.AlterField(
-            model_name='post',
-            name='tags',
-            field=models.ManyToManyField(blank=True, to='blog.Tag', verbose_name='标签(Tag)'),
+            model_name="post",
+            name="tags",
+            field=models.ManyToManyField(
+                blank=True, to="blog.Tag", verbose_name="标签(Tag)"
+            ),
         ),
         migrations.AlterField(
-            model_name='post',
-            name='title',
-            field=models.CharField(max_length=70, verbose_name='标题'),
+            model_name="post",
+            name="title",
+            field=models.CharField(max_length=70, verbose_name="标题"),
         ),
     ]
